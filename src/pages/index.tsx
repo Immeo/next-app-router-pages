@@ -1,4 +1,5 @@
 import localFont from 'next/font/local';
+import Button from './components/Button/Button';
 import Htag from './components/Htag/Htag';
 
 const geistSans = localFont({
@@ -16,6 +17,8 @@ export default function Home(): JSX.Element {
 	return (
 		<>
 			<Htag tag={'h3'}>Текст</Htag>
+			<Button appearance={'primary'}>primary</Button>
+			<Button appearance={'ghost'}>ghost</Button>
 		</>
 	);
 }

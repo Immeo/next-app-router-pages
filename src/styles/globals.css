@@ -1,11 +1,22 @@
 :root {
-	--background-main-color: #f5f6f8;
+	/* main-colors */
+	--main-color: #f5f6f8;
 	--color-text-main: #3b434e;
 	--color-decorations: #7653fc;
+	--color-decorations-hover: #6344df;
 	--color-mini-decorations: #1dc37e;
 	--color-mini-decorations-light: #c8f8e4;
 	--color-star-type-one: #fc836d;
 
+	/* more colors */
+	--specific-color-gray: #a4a4a4;
+	--specific-color-gray-light: #ebebeb;
+	--specific-color-gray-dark: #6c7077;
+	--specific-color-red-light: #fea291;
+	--specific-color-green: #007b48;
+	--specific-color-green-light: #c8f8e4;
+
+	/* main fonts */
 	--font-family-main: 'Noto Sans KR', sans-serif;
 }
 
@@ -25,7 +36,7 @@ body {
 
 body {
 	color: var(--color-text-main);
-	background: var(--background-main-color);
+	background: var(--main-color);
 	font-family: var(--font-family-main);
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
