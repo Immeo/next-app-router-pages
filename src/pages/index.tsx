@@ -1,4 +1,5 @@
 import localFont from 'next/font/local';
+import Htag from './components/Htag/Htag';
 
 const geistSans = localFont({
 	src: './fonts/GeistVF.woff',
@@ -12,7 +13,9 @@ const geistMono = localFont({
 });
 
 export default function Home(): JSX.Element {
-	const testiringDebog = 1;
-
-	return <></>;
+	return (
+		<>
+			<Htag tag={'h3'}>Текст</Htag>
+		</>
+	);
 }
