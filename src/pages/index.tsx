@@ -2,6 +2,7 @@ import localFont from 'next/font/local';
 import Button from './components/Button/Button';
 import Htag from './components/Htag/Htag';
 import PTag from './components/PTag/PTag';
+import VariableTag from './components/VariableTag/VariableTag';
 
 const geistSans = localFont({
 	src: './fonts/GeistVF.woff',
@@ -54,6 +55,21 @@ export default function Home(): JSX.Element {
 				предпосылок! Мы вынуждены отталкиваться от того, что существующая теория
 				способствует подготовке и реализации модели развития.
 			</PTag>
+			<VariableTag size='m' color='ghost'>
+				1
+			</VariableTag>
+			<VariableTag size='m' color='red'>
+				2
+			</VariableTag>
+			<VariableTag size='m' color='grey'>
+				3
+			</VariableTag>
+			<VariableTag size='m' color='green'>
+				4
+			</VariableTag>
+			<VariableTag size='s' color='primary'>
+				5
+			</VariableTag>
 		</>
 	);
 }

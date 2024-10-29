@@ -7,9 +7,9 @@ function PTag({ children, className, size = 'm', ...props }: IPTag) {
 		<p
 			{...props}
 			className={cn(styles.p, className, {
-				[styles.small]: size === 's',
-				[styles.medium]: size === 'm',
-				[styles.large]: size === 'l'
+				[styles.s]: size === 's',
+				[styles.m]: size === 'm',
+				[styles.l]: size === 'l'
 			})}
 		>
 			{children}
