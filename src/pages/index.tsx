@@ -4,12 +4,13 @@ import PTag from '../../components/PTag/PTag';
 import Rating from '../../components/Rating/Rating';
 import VariableTag from '../../components/VariableTag/VariableTag';
 import { useStateRating } from '../../hook/workState/useStateRating';
+import Layout from '../../layout/Layout';
 
 export default function Home(): JSX.Element {
 	const { rating, setRating } = useStateRating(3);
 
 	return (
-		<>
+		<Layout>
 			<Htag tag={'h3'}>Текст</Htag>
 			<Button appearance={'primary'} arrowSvg='down'>
 				primary
@@ -37,6 +38,6 @@ export default function Home(): JSX.Element {
 			<VariableTag size='s' color='primary'>
 				5
 			</VariableTag>
-		</>
+		</Layout>
 	);
 }
