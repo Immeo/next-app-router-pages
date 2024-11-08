@@ -1,6 +1,6 @@
 import { IFooter } from './Footer.props';
 
-function Footer({}: IFooter) {
-	return <div>Footer</div>;
+function Footer({ className }: IFooter) {
+	return <div className={className}>Footer</div>;
 }
 export default Footer;
