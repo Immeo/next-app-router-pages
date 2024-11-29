@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import Link from 'next/link';
 import { useContext } from 'react';
 import { AppContext } from '../../context/app.context';
 import BookIcon from '../../helpers/icons/books.svg';
@@ -45,16 +46,18 @@ function Menu() {
 				{firstLevelMenu.map(m => {
 					return (
 						<div key={m.route}>
-							<a href={`/${m.route}`}>
-								<div
-									className={cn(styles.firstLevel, {
-										[styles.active]: m.id === firstCategory
-									})}
-								>
-									{m.icon}
-									<span>{m.name}</span>
-								</div>
-							</a>
+							<Link legacyBehavior href={`/${m.route}`}>
+								<a>
+									<div
+										className={cn(styles.firstLevel, {
+											[styles.active]: m.id === firstCategory
+										})}
+									>
+										{m.icon}
+										<span>{m.name}</span>
+									</div>
+								</a>
+							</Link>
 							{m.id === firstCategory && buildSecondLevel(m)}
 						</div>
 					);
@@ -84,15 +87,15 @@ function Menu() {
 
 	const buildThirdLevel = (pages: IPageItem[], route: string) => {
 		return pages.map(page => (
-			<a
-				key={page.alias}
-				href={`/${route}/${page.alias}`}
-				className={cn(styles.thirdLevel, {
-					[styles.active]: true
-				})}
-			>
-				{page.category}
-			</a>
+			<Link legacyBehavior key={page._id} href={`/${route}/${page.alias}`}>
+				<a
+					className={cn(styles.thirdLevel, {
+						[styles.active]: false
+					})}
+				>
+					{page.title}
+				</a>
+			</Link>
 		));
 	};
 
