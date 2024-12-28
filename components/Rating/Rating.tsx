@@ -1,18 +1,11 @@
-import cn from 'classnames';
-import { useEffect, useState } from 'react';
+import { RatingProps } from './Rating.props';
 import styles from './Rating.module.css';
-import { IRating } from './Rating.props';
-import StarIcon from './starIcon.svg';
+import cn from 'classnames';
+import StarIcon from './star.svg';
+import { useEffect, useState, KeyboardEvent } from 'react';
 
-const Rating = ({
-	isEditable = false,
-	rating,
-	setRating,
-	...props
-}: IRating): JSX.Element => {
-	const [ratingArray, setRatingArray] = useState<JSX.Element[]>(
-		new Array(5).fill(<></>)
-	);
+export const Rating = ({ isEditable = false, rating, setRating, ...props }: RatingProps): JSX.Element => {
+	const [ratingArray, setRatingArray] = useState<JSX.Element[]>(new Array(5).fill(<></>));
 
 	useEffect(() => {
 		constructRating(rating);
@@ -22,42 +15,42 @@ const Rating = ({
 		const updatedArray = ratingArray.map((r: JSX.Element, i: number) => {
 			return (
 				<span
-					onMouseEnter={() => changeDisplay(i + 1)}
-					onMouseLeave={() => changeDisplay(rating)}
-					onClick={() => onclick(i + 1)}
 					className={cn(styles.star, {
 						[styles.filled]: i < currentRating,
 						[styles.editable]: isEditable
 					})}
+					onMouseEnter={() => changeDispay(i + 1)}
+					onMouseLeave={() => changeDispay(rating)}
+					onClick={() => onClick(i + 1)}
 				>
 					<StarIcon
+
 						tabIndex={isEditable ? 0 : -1}
-						onKeyDown={(e: React.KeyboardEvent<SVGSVGElement>) =>
-							isEditable && onPressSpace(i + 1, e)
-						}
+						onKeyDown={(e: KeyboardEvent<SVGElement>) => isEditable && handleSpace(i + 1, e)}
 					/>
 				</span>
+
 			);
 		});
 		setRatingArray(updatedArray);
 	};
 
-	const changeDisplay = (i: number) => {
+	const changeDispay = (i: number) => {
 		if (!isEditable) {
 			return;
 		}
 		constructRating(i);
 	};
 
-	const onclick = (i: number) => {
+	const onClick = (i: number) => {
 		if (!isEditable || !setRating) {
 			return;
 		}
 		setRating(i);
 	};
 
-	const onPressSpace = (i: number, e: React.KeyboardEvent<SVGSVGElement>) => {
-		if (e.code !== 'Space' || !setRating) {
+	const handleSpace = (i: number, e: KeyboardEvent<SVGElement>) => {
+		if (e.code != 'Space' || !setRating) {
 			return;
 		}
 		setRating(i);
@@ -65,11 +58,7 @@ const Rating = ({
 
 	return (
 		<div {...props}>
-			{ratingArray.map((r, i) => (
-				<span key={i}>{r}</span>
-			))}
+			{ratingArray.map((r, i) => (<span key={i}>{r}</span>))}
 		</div>
 	);
 };
-
-export default Rating;

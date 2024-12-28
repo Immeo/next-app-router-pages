@@ -1,104 +1,125 @@
 import cn from 'classnames';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import { AppContext } from '../../context/app.context';
-import BookIcon from '../../helpers/icons/books.svg';
-import CourssIcon from '../../helpers/icons/courses.svg';
-import ProductIcon from '../../helpers/icons/products.svg';
-import ServiseIcon from '../../helpers/icons/services.svg';
-import { IFirstLevelMenuItem, IPageItem } from '../../interface/menu.interface';
-import { TopLevelCategory } from '../../interface/pages.interfase';
+import { FirstLevelMenuItem, PageItem } from '../../interfaces/menu.interface';
+import { TopLevelCategory } from '../../interfaces/page.interface';
+import BooksIcon from './icons/books.svg';
+import CoursesIcon from './icons/courses.svg';
+import ProductsIcon from './icons/products.svg';
+import ServicesIcon from './icons/services.svg';
 import styles from './Menu.module.css';
 
-const firstLevelMenu: IFirstLevelMenuItem[] = [
+const firstLevelMenu: FirstLevelMenuItem[] = [
 	{
 		route: 'courses',
 		name: 'Курсы',
-		icon: <CourssIcon />,
+		icon: <CoursesIcon />,
 		id: TopLevelCategory.Courses
 	},
 	{
 		route: 'services',
 		name: 'Сервисы',
-		icon: <ServiseIcon />,
+		icon: <ServicesIcon />,
 		id: TopLevelCategory.Services
 	},
 	{
 		route: 'books',
 		name: 'Книги',
-		icon: <BookIcon />,
+		icon: <BooksIcon />,
 		id: TopLevelCategory.Books
 	},
 	{
 		route: 'products',
 		name: 'Продукты',
-		icon: <ProductIcon />,
+		icon: <ProductsIcon />,
 		id: TopLevelCategory.Products
 	}
 ];
 
-function Menu() {
+export const Menu = (): JSX.Element => {
 	const { menu, setMenu, firstCategory } = useContext(AppContext);
+	const router = useRouter();
+
+	const openSecondLevel = (secondCategory: string) => {
+		setMenu &&
+			setMenu(
+				menu.map(m => {
+					if (m._id.secondCategory == secondCategory) {
+						m.isOpened = !m.isOpened;
+					}
+					return m;
+				})
+			);
+	};
 
 	const buildFirstLevel = () => {
 		return (
 			<>
-				{firstLevelMenu.map(m => {
-					return (
-						<div key={m.route}>
-							<Link legacyBehavior href={`/${m.route}`}>
-								<a>
-									<div
-										className={cn(styles.firstLevel, {
-											[styles.active]: m.id === firstCategory
-										})}
-									>
-										{m.icon}
-										<span>{m.name}</span>
-									</div>
-								</a>
-							</Link>
-							{m.id === firstCategory && buildSecondLevel(m)}
-						</div>
-					);
-				})}
+				{firstLevelMenu.map(m => (
+					<div key={m.route}>
+						<Link legacyBehavior href={`/${m.route}`}>
+							<a>
+								<div
+									className={cn(styles.firstLevel, {
+										[styles.firstLevelActive]: m.id == firstCategory
+									})}
+								>
+									{m.icon}
+									<span>{m.name}</span>
+								</div>
+							</a>
+						</Link>
+						{m.id == firstCategory && buildSecondLevel(m)}
+					</div>
+				))}
 			</>
 		);
 	};
 
-	const buildSecondLevel = (menuItem: IFirstLevelMenuItem) => {
+	const buildSecondLevel = (menuItem: FirstLevelMenuItem) => {
 		return (
 			<div className={styles.secondBlock}>
-				{menu.map(m => (
-					<div key={m._id.secondCategory}>
-						<div className={styles.secondLevel}>{m._id.secondCategory}</div>
-						<div
-							className={cn(styles.secondLevelBlock, {
-								[styles.secondLevelBlockOpened]: m.isOpened
-							})}
-						>
-							{buildThirdLevel(m.pages, menuItem.route)}
+				{menu.map(m => {
+					if (m.pages.map(p => p.alias).includes(router.asPath.split('/')[2])) {
+						m.isOpened = true;
+					}
+					return (
+						<div key={m._id.secondCategory}>
+							<div
+								className={styles.secondLevel}
+								onClick={() => openSecondLevel(m._id.secondCategory)}
+							>
+								{m._id.secondCategory}
+							</div>
+							<div
+								className={cn(styles.secondLevelBlock, {
+									[styles.secondLevelBlockOpened]: m.isOpened
+								})}
+							>
+								{buildThirdLevel(m.pages, menuItem.route)}
+							</div>
 						</div>
-					</div>
-				))}
+					);
+				})}
 			</div>
 		);
 	};
 
-	const buildThirdLevel = (pages: IPageItem[], route: string) => {
-		return pages.map(page => (
-			<Link legacyBehavior key={page._id} href={`/${route}/${page.alias}`}>
+	const buildThirdLevel = (pages: PageItem[], route: string) => {
+		return pages.map(p => (
+			<Link key={p._id} legacyBehavior href={`/${route}/${p.alias}`}>
 				<a
 					className={cn(styles.thirdLevel, {
-						[styles.active]: false
+						[styles.thirdLevelActive]: `/${route}/${p.alias}` == router.asPath
 					})}
 				>
-					{page.title}
+					{p.category}
 				</a>
 			</Link>
 		));
 	};
 
 	return <div className={styles.menu}>{buildFirstLevel()}</div>;
-}
-export default Menu;
+};

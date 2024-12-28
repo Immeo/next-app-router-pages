@@ -1,6 +1,11 @@
-import { IHeader } from './Header.props';
+import { HeaderProps } from './Header.props';
+import styles from './Header.module.css';
+import cn from 'classnames';
 
-function Header({ ...props }: IHeader) {
-	return <div {...props}>Header</div>;
-}
-export default Header;
+export const Header = ({ ...props }: HeaderProps): JSX.Element => {
+	return (
+		<div {...props}>
+			Header
+		</div>
+	);
+};
