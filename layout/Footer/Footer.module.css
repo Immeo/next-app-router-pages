@@ -10,6 +10,11 @@
 	padding: 25px 30px;
 }
 
+.footer a {
+	transition: color 0.3s;
+	color: var(--white);
+}
+
 .footer a:hover {
 	color: var(--gray-light);
 }
@@ -18,5 +23,4 @@
 	.footer {
 		grid-template-columns: 1fr;
 	}
-
 }
