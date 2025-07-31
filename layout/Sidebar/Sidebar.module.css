@@ -1,0 +1,9 @@
+.sidebar {
+	display: grid;
+	gap: 20px 0;
+	align-content: start;
+}
+
+.logo {
+	margin-top: 34px;
+}
