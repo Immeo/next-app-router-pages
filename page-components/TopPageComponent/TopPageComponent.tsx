@@ -1,4 +1,4 @@
-import { Advantages, HhData, Htag, P, Tag } from '../../components';
+import { Advantages, HhData, Htag, Tag } from '../../components';
 import { TopLevelCategory } from '../../interfaces/page.interface';
 import style from './TopPageComponent.module.css';
 import { TopPageComponentProps } from './TopPageComponent.props';
@@ -37,7 +37,12 @@ export const TopPageConponent = ({
 					<Advantages advantages={page.advantages} />
 				</>
 			)}
-			{page.seoText && <P>{page.seoText}</P>}
+			{page.seoText && (
+				<div
+					className={style.seo}
+					dangerouslySetInnerHTML={{ __html: page.seoText }}
+				/>
+			)}
 			<Htag tag='h2'>Получаемые навыки</Htag>
 			{page.tags.map(t => (
 				<Tag key={t} color='primary'>
