@@ -1,4 +1,4 @@
-import { priceRu } from '../../helpers/helpers';
+import { declOfNum, priceRu } from '../../helpers/helpers';
 import { Button } from '../Button/Button';
 import { Card } from '../Card/Card';
 import { Divider } from '../Divider/Divider';
@@ -42,11 +42,20 @@ export const Product = ({
 			<div className={styles.priceTitle}>Цена</div>
 			<div className={styles.creditTitle}>Кредит</div>
 			<div className={styles.rateTitle}>
-				{product.reviewCount} {product.reviewCount === 1 ? 'отзыв' : 'отзывов'}
+				{product.reviewCount}{' '}
+				{declOfNum(product.reviewCount, ['отзыв', 'отзыва', 'отзывов'])}
 			</div>
 			<Divider className={styles.hr} />
 			<div className={styles.description}>{product.description}</div>
-			<div className={styles.feature}>Фичи</div>
+			<div className={styles.feature}>
+				{product.characteristics.map(c => (
+					<div className={styles.characteristics} key={c.name}>
+						<span className={styles.characteristicName}>{c.name}</span>
+						<span className={styles.dots}></span>
+						<span className={styles.characteristicValue}>{c.value}</span>
+					</div>
+				))}
+			</div>
 			<div className={styles.advBlock}>
 				{product.advantages && (
 					<div className={styles.advantages}>
