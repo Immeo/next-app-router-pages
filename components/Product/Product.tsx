@@ -7,6 +7,7 @@ import { Card } from '../Card/Card';
 import { Divider } from '../Divider/Divider';
 import { Rating } from '../Rating/Rating';
 import { Review } from '../Review/Review';
+import { ReviewForm } from '../ReviewForm/ReviewForm';
 import { Tag } from '../Tag/Tag';
 import styles from './Product.module.css';
 import { ProductProps } from './Product.props';
@@ -107,22 +108,30 @@ export const Product = ({
 					)}
 				</div>
 			</Card>
-			{product.reviewAvg
-				? product.reviewAvg > 0 &&
-				  isReviewOpened && (
-						<Card
-							color='blue'
-							className={cn(styles.reviews, {
-								[styles.opened]: isReviewOpened,
-								[styles.closed]: !isReviewOpened
-							})}
-						>
-							{product.reviews.map(r => (
+			{product.reviewAvg ? (
+				product.reviewAvg > 0 &&
+				isReviewOpened && (
+					<Card
+						color='blue'
+						className={cn(styles.reviews, {
+							[styles.opened]: isReviewOpened,
+							[styles.closed]: !isReviewOpened
+						})}
+					>
+						{product.reviews.map(r => (
+							<>
 								<Review key={r._id} review={r} />
-							))}{' '}
-						</Card>
-				  )
-				: ''}
+								<Divider />
+							</>
+						))}{' '}
+						<ReviewForm productId={product._id} />
+					</Card>
+				)
+			) : (
+				<Card color='blue' className={styles.reviews}>
+					<ReviewForm productId={product._id} />
+				</Card>
+			)}
 		</>
 	);
 };
