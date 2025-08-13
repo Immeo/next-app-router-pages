@@ -1,4 +1,5 @@
 export * from './Advantages/Advantages';
+export * from './Areatext/Areatext';
 export * from './Button/Button';
 export * from './Card/Card';
 export * from './Divider/Divider';
@@ -13,4 +14,3 @@ export * from './ReviewForm/ReviewForm';
 export * from './Search/Search';
 export * from './Sort/Sort';
 export * from './Tag/Tag';
-export * from './TextArea/TextArea';
