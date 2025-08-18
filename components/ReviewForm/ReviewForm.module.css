@@ -28,12 +28,23 @@
 	margin-left: 15px;
 }
 
-.success {
+.panel {
 	position: relative;
 	grid-column: start / end;
 	padding: 20px;
 	border-radius: 5px;
+}
+
+.success {
 	background: var(--green-light);
+}
+
+.error {
+	background: var(--red-light);
+}
+
+.error .close path {
+	stroke: var(--red);
 }
 
 .successTitle {
