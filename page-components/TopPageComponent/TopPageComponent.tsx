@@ -1,6 +1,7 @@
 import { useEffect, useReducer } from 'react';
 import { Advantages, HhData, Htag, Product, Sort, Tag } from '../../components';
 import { SortEnum } from '../../components/Sort/Sort.props';
+import { useScroll } from '../../hooks/useScrollY';
 import { TopLevelCategory } from '../../interfaces/page.interface';
 import style from './TopPageComponent.module.css';
 import { TopPageComponentProps } from './TopPageComponent.props';
@@ -20,12 +21,15 @@ export const TopPageConponent = ({
 		dispathSort({ type: sort });
 	};
 
+	const scrolling = useScroll();
+
 	useEffect(() => {
 		dispathSort({ type: 'reset', initialState: products });
 	}, [products]);
 
 	return (
 		<div className={style.wrapper}>
+			{scrolling}
 			<div className={style.title}>
 				<Htag tag='h1'>{page.title}</Htag>
 				{products && (
