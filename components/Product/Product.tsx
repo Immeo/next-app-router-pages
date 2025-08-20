@@ -20,6 +20,13 @@ export const Product = motion(
 			ref: ForwardedRef<HTMLDivElement>
 		): JSX.Element => {
 			const [isReviewOpened, setIsReviewOpened] = useState<boolean>(false);
+			const [isNewReviewOpened, setIsNewReviewOpened] =
+				useState<boolean>(false);
+
+			const variants = {
+				visible: { opacity: 1, height: 'auto' },
+				hidden: { opacity: 0, height: 0 }
+			};
 
 			return (
 				<div className={cn(className)} ref={ref} {...props}>
@@ -103,7 +110,8 @@ export const Product = motion(
 							) : (
 								<Button
 									appearance='ghost'
-									arrow='down'
+									arrow={isNewReviewOpened ? 'down' : 'right'}
+									onClick={() => setIsNewReviewOpened(!isNewReviewOpened)}
 									className={styles.reviewButton}
 								>
 									Оставить отзыв
@@ -111,30 +119,42 @@ export const Product = motion(
 							)}
 						</div>
 					</Card>
-					{product.reviewAvg ? (
-						product.reviewAvg > 0 &&
-						isReviewOpened && (
-							<Card
-								color='blue'
-								className={cn(styles.reviews, {
-									[styles.opened]: isReviewOpened,
-									[styles.closed]: !isReviewOpened
-								})}
-							>
-								{product.reviews.map(r => (
-									<div key={r._id}>
-										<Review review={r} />
-										<Divider />
-									</div>
-								))}{' '}
-								<ReviewForm productId={product._id} />
-							</Card>
-						)
-					) : (
-						<Card color='blue' className={styles.reviews}>
+					<motion.div
+						initial='hidden'
+						animate={isReviewOpened ? 'visible' : 'hidden'}
+						variants={variants}
+					>
+						<Card
+							color='blue'
+							className={cn(styles.reviews, {
+								[styles.opened]: isReviewOpened,
+								[styles.closed]: !isReviewOpened
+							})}
+						>
+							{product.reviews.map(r => (
+								<div key={r._id}>
+									<Review review={r} />
+									<Divider />
+								</div>
+							))}{' '}
 							<ReviewForm productId={product._id} />
 						</Card>
-					)}
+					</motion.div>
+					<motion.div
+						initial='hidden'
+						animate={isNewReviewOpened ? 'visible' : 'hidden'}
+						variants={variants}
+					>
+						<Card
+							color='blue'
+							className={cn(styles.reviews, {
+								[styles.opened]: isNewReviewOpened,
+								[styles.closed]: !isNewReviewOpened
+							})}
+						>
+							<ReviewForm productId={product._id} />
+						</Card>
+					</motion.div>
 				</div>
 			);
 		}
