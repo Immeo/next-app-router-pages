@@ -14,3 +14,4 @@ export * from './ReviewForm/ReviewForm';
 export * from './Search/Search';
 export * from './Sort/Sort';
 export * from './Tag/Tag';
+export * from './Up/Up';
