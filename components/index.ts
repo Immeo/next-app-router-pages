@@ -1,6 +1,7 @@
 export * from './Advantages/Advantages';
 export * from './Areatext/Areatext';
 export * from './Button/Button';
+export * from './ButtonIcon/ButtonIcon';
 export * from './Card/Card';
 export * from './Divider/Divider';
 export * from './HhData/HhData';
