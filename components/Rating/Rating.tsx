@@ -65,6 +65,7 @@ export const Rating = forwardRef(
 			if (e.code != 'Space' || !setRating) {
 				return;
 			}
+			e.preventDefault();
 			setRating(i);
 		};
 
