@@ -19,6 +19,7 @@ a {
 	box-sizing: border-box;
 }
 
+/* Эти цвета проходят рамки доступности */
 :root {
 	--black: #3b434e;
 	--gray-light: #ebebeb;
