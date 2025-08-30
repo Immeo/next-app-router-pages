@@ -15,6 +15,7 @@ import CloseIcon from './close.svg';
 export const ReviewForm = ({
 	productId,
 	className,
+	isOpened,
 	...props
 }: ReviewFormProps): JSX.Element => {
 	const {
@@ -54,46 +55,50 @@ export const ReviewForm = ({
 					{...register('name', {
 						required: { value: true, message: 'Заполните имя' }
 					})}
-					error={errors.name}
 					placeholder='Имя'
+					error={errors.name}
+					tabIndex={isOpened ? 0 : -1}
 				/>
 				<Input
 					{...register('title', {
 						required: { value: true, message: 'Заполните заголовок' }
 					})}
 					placeholder='Заголовок отзыва'
-					error={errors.title}
 					className={styles.title}
+					error={errors.title}
+					tabIndex={isOpened ? 0 : -1}
 				/>
 				<div className={styles.rating}>
 					<span>Оценка:</span>
 					<Controller
 						control={control}
-						rules={{
-							required: { value: true, message: 'Укажите рейтинг' }
-						}}
 						name='rating'
+						rules={{ required: { value: true, message: 'Укажите рейтинг' } }}
 						render={({ field }) => (
 							<Rating
 								isEditable
 								rating={field.value}
 								ref={field.ref}
-								error={errors.rating}
 								setRating={field.onChange}
+								error={errors.rating}
+								tabIndex={isOpened ? 0 : -1}
 							/>
 						)}
 					/>
 				</div>
 				<Areatext
 					{...register('description', {
-						required: { value: true, message: 'Заполните текст' }
+						required: { value: true, message: 'Заполните описание' }
 					})}
-					error={errors.description}
 					placeholder='Текст отзыва'
 					className={styles.description}
+					error={errors.description}
+					tabIndex={isOpened ? 0 : -1}
 				/>
 				<div className={styles.submit}>
-					<Button appearance='primary'>Отправить</Button>
+					<Button appearance='primary' tabIndex={isOpened ? 0 : -1}>
+						Отправить
+					</Button>
 					<span className={styles.info}>
 						* Перед публикацией отзыв пройдет предварительную модерацию и
 						проверку
@@ -101,7 +106,7 @@ export const ReviewForm = ({
 				</div>
 			</div>
 			{isSuccessForm && (
-				<div className={cn(styles.panel, styles.success)}>
+				<div className={cn(styles.success, styles.panel)}>
 					<div className={styles.successTitle}>Ваш отзыв отправлен</div>
 					<div>Спасибо, ваш отзыв будет опубликован после проверки.</div>
 					<CloseIcon
@@ -111,8 +116,8 @@ export const ReviewForm = ({
 				</div>
 			)}
 			{error && (
-				<div className={cn(styles.panel, styles.error)}>
-					Что-то пошло не так... Возникла ошибка: {error}.. Обновите страницу.
+				<div className={cn(styles.error, styles.panel)}>
+					Что-то пошло не так, попробуйте обновить страницу
 					<CloseIcon
 						className={styles.close}
 						onClick={() => setError(undefined)}

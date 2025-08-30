@@ -20,25 +20,15 @@ export const Menu = (): JSX.Element => {
 				staggerChildren: 0.1
 			}
 		},
-		hidden: { marginButton: 0 }
+		hidden: { marginBottom: 0 }
 	};
 
 	const variantsChildren = {
 		visible: {
-			height: 29,
-			opacity: 1
+			opacity: 1,
+			height: 29
 		},
-		hidden: {
-			height: 0,
-			opacity: 0
-		}
-	};
-
-	const openSecondLevelKey = (key: KeyboardEvent, secondCategory: string) => {
-		if (key.code == 'Enter' || key.code == 'Space') {
-			key.preventDefault();
-			openSecondLevel(secondCategory);
-		}
+		hidden: { opacity: 0, height: 0 }
 	};
 
 	const openSecondLevel = (secondCategory: string) => {
@@ -51,6 +41,13 @@ export const Menu = (): JSX.Element => {
 					return m;
 				})
 			);
+	};
+
+	const openSecondLevelKey = (key: KeyboardEvent, secondCategory: string) => {
+		if (key.code == 'Space' || key.code == 'Enter') {
+			key.preventDefault();
+			openSecondLevel(secondCategory);
+		}
 	};
 
 	const buildFirstLevel = () => {
@@ -87,11 +84,11 @@ export const Menu = (): JSX.Element => {
 					return (
 						<div key={m._id.secondCategory}>
 							<div
-								className={styles.secondLevel}
 								tabIndex={0}
 								onKeyDown={(key: KeyboardEvent) =>
 									openSecondLevelKey(key, m._id.secondCategory)
 								}
+								className={styles.secondLevel}
 								onClick={() => openSecondLevel(m._id.secondCategory)}
 							>
 								{m._id.secondCategory}
@@ -118,7 +115,7 @@ export const Menu = (): JSX.Element => {
 		isOpened: boolean
 	) => {
 		return pages.map(p => (
-			<motion.div variants={variantsChildren} key={p._id}>
+			<motion.div key={p._id} variants={variantsChildren}>
 				<Link legacyBehavior href={`/${route}/${p.alias}`}>
 					<a
 						tabIndex={isOpened ? 0 : -1}
