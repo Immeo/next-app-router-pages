@@ -8,6 +8,10 @@
 	font-weight: bold;
 }
 
+.sortName {
+	display: none;
+}
+
 .active .sortIcon {
 	display: block;
 
