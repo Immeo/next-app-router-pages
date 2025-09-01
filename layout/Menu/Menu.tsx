@@ -130,5 +130,9 @@ export const Menu = (): JSX.Element => {
 		));
 	};
 
-	return <div className={styles.menu}>{buildFirstLevel()}</div>;
+	return (
+		<nav role='navigation' className={styles.menu}>
+			{buildFirstLevel()}
+		</nav>
+	);
 };
