@@ -19,6 +19,12 @@ a {
 	box-sizing: border-box;
 }
 
+.visualyHidden {
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
 /* Эти цвета проходят рамки доступности */
 :root {
 	--black: #3b434e;
