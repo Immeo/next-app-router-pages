@@ -123,8 +123,9 @@ export const Product = motion(
 							<Button
 								appearance='ghost'
 								arrow={isReviewOpened ? 'down' : 'right'}
-								className={styles.reviewButton}
+								aria-expanded={isReviewOpened}
 								onClick={() => setIsReviewOpened(!isReviewOpened)}
+								className={styles.reviewButton}
 							>
 								Читать отзывы
 							</Button>
