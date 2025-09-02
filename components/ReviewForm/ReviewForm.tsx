@@ -115,22 +115,29 @@ export const ReviewForm = ({
 				</div>
 			</div>
 			{isSuccessForm && (
-				<div className={cn(styles.success, styles.panel)}>
+				<div role='alert' className={cn(styles.success, styles.panel)}>
 					<div className={styles.successTitle}>Ваш отзыв отправлен</div>
 					<div>Спасибо, ваш отзыв будет опубликован после проверки.</div>
-					<CloseIcon
-						className={styles.close}
+					<button
+						aria-label='Закрыть оповещения отправки отзыва'
+						tabIndex={isSuccessForm ? 0 : -1}
 						onClick={() => setIsSuccessForm(false)}
-					/>
+						className={styles.close}
+					>
+						<CloseIcon />
+					</button>
 				</div>
 			)}
 			{error && (
-				<div className={cn(styles.error, styles.panel)}>
+				<div role='alert' className={cn(styles.error, styles.panel)}>
 					Что-то пошло не так, попробуйте обновить страницу
-					<CloseIcon
-						className={styles.close}
+					<button
+						aria-label='Закрыть оповещения об ошибке'
 						onClick={() => setError(undefined)}
-					/>
+						className={styles.close}
+					>
+						<CloseIcon />
+					</button>
 				</div>
 			)}
 		</form>

@@ -43,7 +43,7 @@
 	background: var(--red-light);
 }
 
-.error .close path {
+.error .close svg path {
 	stroke: var(--red);
 }
 
@@ -55,7 +55,8 @@
 	position: absolute;
 	top: 20px;
 	right: 20px;
-	cursor: pointer;
+	border: none;
+	background: none;
 }
 
 @media screen and (max-width: 1100px) {
