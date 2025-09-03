@@ -10,26 +10,27 @@ import { TopPageModel } from '../../interfaces/page.interface';
 import { ProductModel } from '../../interfaces/product.interface';
 import { withLayout } from '../../layout/Layout';
 import { TopPageConponent } from '../../page-components/indesx';
+import { Error404 } from '../404';
 
 function TopPage({ firstCategory, page, products }: TopPageProps): JSX.Element {
+	if (!products || !page) {
+		return <Error404 />;
+	}
+
 	return (
 		<>
-			{page && products && (
-				<>
-					<Head>
-						<title>{page.metaTitle}</title>
-						<meta property='og:title' content={page.metaTitle} />
-						<meta name='description' content={page.metaDescription} />
-						<meta property='og:description' content={page.metaDescription} />
-						<meta property='og:type' content='article' />
-					</Head>
-					<TopPageConponent
-						firstCategory={firstCategory}
-						page={page}
-						products={products}
-					/>
-				</>
-			)}
+			<Head>
+				<title>{page.metaTitle}</title>
+				<meta property='og:title' content={page.metaTitle} />
+				<meta name='description' content={page.metaDescription} />
+				<meta property='og:description' content={page.metaDescription} />
+				<meta property='og:type' content='article' />
+			</Head>
+			<TopPageConponent
+				firstCategory={firstCategory}
+				page={page}
+				products={products}
+			/>
 		</>
 	);
 }
