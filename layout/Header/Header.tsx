@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { ButtonIcon } from '../../components';
@@ -11,6 +11,7 @@ import { HeaderProps } from './Header.props';
 export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
 	const [isOpened, setIsOpened] = useState<boolean>(false);
 	const router = useRouter();
+	const shouldReduceMotion = useReducedMotion();
 
 	useEffect(() => {
 		setIsOpened(false);
@@ -18,7 +19,7 @@ export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
 
 	const variants = {
 		opened: { opacity: 1, x: 0, transition: { stiffness: 20 } },
-		closed: { opacity: 0, x: '100%' }
+		closed: { opacity: shouldReduceMotion ? 1 : 0, x: '100%' }
 	};
 
 	return (
