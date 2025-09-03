@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
+import Head from 'next/head';
 import { ParsedUrlQuery } from 'node:querystring';
 import { API } from '../../helpers/api';
 import { firstLevelMenu } from '../../helpers/helpers';
@@ -12,11 +13,20 @@ import { TopPageConponent } from '../../page-components/indesx';
 
 function TopPage({ firstCategory, page, products }: TopPageProps): JSX.Element {
 	return (
-		<TopPageConponent
-			firstCategory={firstCategory}
-			page={page}
-			products={products}
-		/>
+		<>
+			<Head>
+				<title>{page.metaTitle}</title>
+				<meta property='og:title' content={page.metaTitle} />
+				<meta name='description' content={page.metaDescription} />
+				<meta property='og:description' content={page.metaDescription} />
+				<meta property='og:type' content='article' />
+			</Head>
+			<TopPageConponent
+				firstCategory={firstCategory}
+				page={page}
+				products={products}
+			/>
+		</>
 	);
 }
 
